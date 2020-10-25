@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+ <head>
+	<title>JS | Design Patterns</title>
+	<style>
+	
+		*{
+			box-sizing: border-box;
+		}
+	
+		img{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		
+		.main{
+			display: flex;
+		}
+		
+		.main section {
+			flex: 1;
+		}
+		
+		.cat-names{
+			list-style: none;
+			
+		}
+	
+		.cat-name{
+			cursor: pointer;
+			width: min-content;
+			font-size: 18px;
+			padding: 10px 20px;
+			margin-bottom: 5px; 
+			text-transform: capitalize;
+		}
+		
+		.cat-name:hover{
+			color: lightsalmon;
+		}
+		
+		.display-area{
+			background-color: mistyrose;
+			width: 100%;
+			height: 96vh;
+			padding: 20px;
+			position: relative;
+		}
+		
+		.cat__name{
+			text-transform: capitalize
+		}
+		
+		.cat__photo{
+			width: 100%;
+			height: 80vh;
+			cursor: pointer;
+		}
+		
+		.cat__clicks{
+			position: absolute;
+			right: 5%;
+			top: 5%;
+		}
+		
+	</style>
+ </head>
+ <body>
+   <header>
+	</header>
+  <main role="main" class="main">
+	<section class="">
+		<ul class="cat-names">
+			<li class="cat-name">dorothy</li>
+			<li class="cat-name">eva</li>
+			<li class="cat-name">sheena</li>
+			<li class="cat-name">slavy</li>
+			<li class="cat-name">alexandra</li>
+		</ul>
+	</section>
+	<section class="display-area">
+	  <article class="cat">
+		<h3 class="cat__name"></h3>
+		<div class="cat__photo">
+			<img class="cat__img" src="" alt="">
+		</div>
+		<p class="cat__clicks"></p>
+	  </article>
+	</section>
+  </main>
+  <script src="cat-clicker.js"></script>
+ </body>
+</html>
