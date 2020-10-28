@@ -84,15 +84,32 @@ const listView = {
 			cat = cats[i];
 			catLi.innerHTML = `<button class="cat-button">${cat.name}</button>`;
 			catLi.classList.add('cats-nav__item');
-			catLi.addEventListener('click', function (cat) {
-				console.log(cat);
-			});
+			catLi.querySelector('button').addEventListener('click', function (catCopy) {
+				return function(){
+					octopus.setCurrentCat(catCopy);
+					octopus.displayCat();
+				}
+			}(cat));
 			this.catsUl.appendChild(catLi);
 			console.log(cat);
 		}
 		console.log(cat);
 		document.querySelector('.cat-buttons').appendChild(this.catsUl);
 	}
+		/*cats.forEach(function(cat){  //cat is passed in as a copy, as function parameters are passed by value 
+			const catLi = document.createElement('li');
+			catLi.innerHTML = `<button class="cat-button">${cat.name}</button>`;
+			catLi.classList.add('cats-nav__item');
+			catLi.querySelector('button').addEventListener('click', function () {
+				octopus.setCurrentCat(cat);
+				octopus.displayCat();
+			})
+			listView.catsUl.appendChild(catLi);
+			console.log(cat);
+		})
+		document.querySelector('.cat-buttons').appendChild(this.catsUl);
+	}*/
+
 };
 
 const catView = {
