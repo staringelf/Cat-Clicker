@@ -1,34 +1,36 @@
 const model = {
 	currentCat: null,
 	
+	adminVisibilty: false,
+	
 	cats: [
 		{
 			name: 'Dorothy',
-			src: 'dorothy.jpg',
+			src: 'Images/dorothy.jpg',
 			clicks: 0,
 		},
 		
 		{
 			name: 'Sheena',
-			src: 'sheena.jpg',
+			src: 'Images/sheena.jpg',
 			clicks: 0,
 		},
 		
 		{
 			name: 'Alexandra',
-			src: 'alexandra.jpg',
+			src: 'Images/alexandra.jpg',
 			clicks: 0,
 		},
 		
 		{
 			name: 'Slavy',
-			src: 'slavy.jpg',
+			src: 'Images/slavy.jpg',
 			clicks: 0,
 		},
 		
 		{
 			name: 'Eva',
-			src: 'eva.jpg',
+			src: 'Images/eva.jpg',
 			clicks: 0,
 		}
 	]
@@ -40,8 +42,8 @@ const octopus = {
 		model.currentCat = model.cats[0];
 		listView.init();
 		catView.init();
+		adminView.init();
 	},
-	
 	
 	getCats: function () {
 		return model.cats;
@@ -61,6 +63,27 @@ const octopus = {
 	
 	incrementClicks: function () {
 		model.currentCat.clicks++;
+		catView.render();
+	},
+	
+	getAdminVisibility: function () {
+		return model.adminVisibility;
+	},
+	
+	showAdminPanel: function () {
+		model.adminVisibility = true;
+		adminView.render();
+	},
+	
+	hideAdminPanel: function () {
+		model.adminVisibility = false;
+		adminView.render();
+	},
+	
+	updateCatData: function (cat) {
+		model.currentCat.name = cat.name;
+		model.currentCat.src = cat.src;
+		model.currentCat.clicks = cat.clicks;
 		catView.render();
 	},
 	
@@ -91,25 +114,9 @@ const listView = {
 				}
 			}(cat));
 			this.catsUl.appendChild(catLi);
-			console.log(cat);
 		}
-		console.log(cat);
 		document.querySelector('.cat-buttons').appendChild(this.catsUl);
 	}
-		/*cats.forEach(function(cat){  //cat is passed in as a copy, as function parameters are passed by value 
-			const catLi = document.createElement('li');
-			catLi.innerHTML = `<button class="cat-button">${cat.name}</button>`;
-			catLi.classList.add('cats-nav__item');
-			catLi.querySelector('button').addEventListener('click', function () {
-				octopus.setCurrentCat(cat);
-				octopus.displayCat();
-			})
-			listView.catsUl.appendChild(catLi);
-			console.log(cat);
-		})
-		document.querySelector('.cat-buttons').appendChild(this.catsUl);
-	}*/
-
 };
 
 const catView = {
@@ -125,12 +132,59 @@ const catView = {
 	},
 	
 	render: function () {
-		
 		const currentCat = octopus.getCurrentCat();
 		this.catName.textContent = currentCat.name;
 		this.catClicks.textContent = currentCat.clicks;
-		this.catImage.src = `Images/${currentCat.src}`;
+		this.catImage.src = currentCat.src;
 	}
+}
+
+const adminView = {
+	init: function () {
+		var i; 
+		
+		this.adminButton = document.querySelector('#admin');
+		this.adminForm = document.querySelector('.form');
+		this.cancelButton = document.querySelector('#cancel');
+		this.inputFields = this.adminForm.querySelectorAll('.input-field');
+		this.adminButton.addEventListener('click', function () {
+			octopus.showAdminPanel();
+		});
+		console.log(this.inputFields);
+		this.adminForm.addEventListener('submit', function (e) {
+			e.preventDefault();
+			if(adminView.inputFields[2].value < 0 ) {
+				adminView.inputFields[2].value = '';
+				return;
+			}
+			debugger;
+			adminView.inputFields[2].value = adminView.inputFields[2].value || 0;
+			
+			octopus.updateCatData({
+				name: adminView.inputFields[0].value,
+				src: adminView.inputFields[1].value,
+				clicks: parseInt(adminView.inputFields[2].value),
+			});
+			adminView.adminForm.reset();
+			octopus.hideAdminPanel();
+		});
+		this.cancelButton.addEventListener('click', function (e) {
+			e.preventDefault();
+			octopus.hideAdminPanel();
+		});
+		this.render();
+	},
+	
+	render: function () {
+		var visibility = octopus.getAdminVisibility();
+		if(visibility){
+			this.adminForm.classList.remove('invisible');
+		} else{
+			this.adminForm.classList.add('invisible');
+		}
+	}
+	
+	
 }
 
 

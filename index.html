@@ -8,6 +8,22 @@
 		*{
 			box-sizing: border-box;
 		}
+		
+		.form{
+			width: 40%;
+		}
+		
+		.input{
+			display: flex;
+		}
+		
+		.input > label{
+			flex: 1;
+		}
+		
+		.input > input{
+			flex: 1;
+		}
 	
 		img{
 			width: 100%;
@@ -28,7 +44,7 @@
 			
 		}
 	
-		.cat-button{
+		.cat-button, .button{
 			cursor: pointer;
 			width: min-content;
 			font-size: 17px;
@@ -42,14 +58,20 @@
 			border-radius: 2px;
 		}
 		
+		.button{
+			font-size: 17px;
+			margin-top: 8px;
+		}
+		
 		.cat-button:hover{
 			background-color: steelblue;
 		}
 		
-		.cat-display{
+		.cat-container{
 			background-color: mistyrose;
+			height: 70vh;
 			width: 100%;
-			height: 96vh;
+			margin:0 auto;
 			padding: 20px;
 			position: relative;
 		}
@@ -60,8 +82,14 @@
 		
 		.cat__photo{
 			width: 90%;
-			height: 80vh;
+			height: 50vh;
 			cursor: pointer;
+		}
+		
+		.cat__img{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
 		}
 		
 		.cat__clicks{
@@ -70,13 +98,18 @@
 			top: 5%;
 		}
 		
+		.invisible{
+			display: none;
+		}
 	</style>
  </head>
  <body>
    <header>
 	</header>
   <main role="main" class="main">
-    <section class="cat-buttons"></section>
+    <section class="cat-buttons">
+	
+	</section>
 	<section class="cat-display">
 		<article class="cat-container">
 			<h3 class="cat__name"></h3>
@@ -85,6 +118,25 @@
 			 </figure>
 			 <p class="cat__clicks"></p>
 		</article>
+		<button class="button" id="admin" style="margin-top: 8px">Admin</button>
+		<form class="form">
+		  <div class="input">
+			<label for="name">Name</label>
+			<input type="text" id="name" name="name" class="input-field" required>
+		  </div>
+		  <div class="input">
+			<label for="url">Image url</label>
+			<input type="text" id="src" name="image-url" class="input-field" required>
+		  </div>
+		  <div class="input">
+			<label for="clicks">No. of Clicks</label>
+			<input type="number" id="clicks" name="clicks" class="input-field">
+		  </div>
+		  <div class="btn-grp">
+			<button class="button" id="cancel">Cancel</button>
+			<input type="submit" class="button" value="Save" id="submit">
+		  </div>
+		</form>
 	</section>
 	<script src="cat-clicker.js"></script>
 	</main>
