@@ -141,7 +141,8 @@ const catView = {
 
 const adminView = {
 	init: function () {
-		var i; 
+		var i, self;
+		self = this;
 		
 		this.adminButton = document.querySelector('#admin');
 		this.adminForm = document.querySelector('.form');
@@ -150,22 +151,21 @@ const adminView = {
 		this.adminButton.addEventListener('click', function () {
 			octopus.showAdminPanel();
 		});
-		console.log(this.inputFields);
+		
 		this.adminForm.addEventListener('submit', function (e) {
 			e.preventDefault();
-			if(adminView.inputFields[2].value < 0 ) {
-				adminView.inputFields[2].value = '';
+			if(self.inputFields[2].value < 0 ) {
+				self.inputFields[2].value = '';
 				return;
 			}
-			debugger;
-			adminView.inputFields[2].value = adminView.inputFields[2].value || 0;
+			self.inputFields[2].value = adminView.inputFields[2].value || 0;
 			
 			octopus.updateCatData({
 				name: adminView.inputFields[0].value,
 				src: adminView.inputFields[1].value,
 				clicks: parseInt(adminView.inputFields[2].value),
 			});
-			adminView.adminForm.reset();
+			self.adminForm.reset();
 			octopus.hideAdminPanel();
 		});
 		this.cancelButton.addEventListener('click', function (e) {
